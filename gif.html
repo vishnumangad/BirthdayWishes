@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Gift 🎁</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:Poppins, sans-serif;
+  background:#f0f6ff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  text-align:center;
+}
+
+/* MAIN */
+.container{
+  animation:fade 0.6s ease;
+}
+
+@keyframes fade{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1;}
+}
+
+h1{
+  font-size: 50px;
+  color:#5a8dee;
+  margin-bottom:20px;
+}
+
+/* GIFT ROW */
+.gifts{
+  display:flex;
+  gap:30px;
+  justify-content:center;
+  margin:20px 0;
+}
+
+/* GIFT BOX */
+.gift{
+  width:200px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.gift:hover{
+  transform:scale(1.1) rotate(-3deg);
+}
+
+/* TEXT */
+p{
+  color:#5a8dee;
+  font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>Gift for you 🎁</h1>
+
+  <div class="gifts">
+    
+    <!-- GIFT 1 -->
+    <img src="gif.png" class="gift" onclick="openGift(1)">
+
+    <!-- GIFT 2 -->
+    <img src="gif.png" class="gift" onclick="openGift(2)">
+
+    <img src="gif.png" class="gift" onclick="openGift(3)">
+
+  </div>
+
+  <p style="font-size:30px;">Click any gift to open!</p>
+</div>
+<audio id="bgMusic"loop>
+  <source src="Singari – Acoustic.mp3"></>
+</audio>
+<script>
+function openGift(num){
+  if(num === 1){
+    window.location.href = "slide.html";
+  } if(num === 2) {
+    window.location.href = "giftpage3.html";
+  }
+  if(num === 3) {
+    window.location.href = "giftpage1.html";
+  }
+}
+const music = document.getElementById("bgMusic");
+
+// try autoplay first
+window.onload = () => {
+  music.play().catch(() => {
+    // autoplay blocked → wait for touch
+    enableTouchStart();
+  });
+};
+
+function enableTouchStart(){
+  const start = () => {
+    music.play();
+
+    // smooth fade in
+    music.volume = 0;
+    let vol = 0;
+
+    let fade = setInterval(()=>{
+      if(vol < 0.5){
+        vol += 0.05;
+        music.volume = vol;
+      } else {
+        clearInterval(fade);
+      }
+    }, 200);
+  };
+
+  // works for mobile + desktop
+  document.body.addEventListener("touchstart", start, { once: true });
+  document.body.addEventListener("click", start, { once: true });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Just Woww!😄</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#2f69c9,#7fb4ff);
+  font-family:'Poppins',sans-serif;
+}
+
+/* TITLE */
+h1{
+  color:white;
+  margin-bottom:20px;
+  text-align:center;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3, 110px);
+  gap:20px;
+}
+
+/* PHOTO CARD */
+.card{
+  background:white;
+  padding:6px;
+  border-radius:12px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.3);
+  transform:rotate(var(--rot));
+  transition:0.3s;
+  cursor:pointer;
+}
+
+/* IMAGE */
+.card img{
+  width:100%;
+  border-radius:8px;
+}
+
+/* CAPTION */
+.caption{
+  font-size:11px;
+  text-align:center;
+  margin-top:5px;
+  color:#444;
+}
+
+/* HOVER */
+.card:hover{
+  transform:scale(1.1) rotate(0deg);
+  z-index:2;
+}
+
+/* BACK BUTTON */
+.back{
+  position:absolute;
+  bottom:20px;
+  right:20px;
+  background:#0d46a2;
+  color:white;
+  padding:8px 18px;
+  border-radius:20px;
+  cursor:pointer;
+}
+  .emoji{
+  position:fixed;
+  top:-50px;
+  font-size:22px;
+  animation:fall linear forwards;
+  pointer-events:none;
+  z-index:5;
+}
+
+@keyframes fall{
+  to{
+    transform:translateY(110vh) rotate(360deg);
+    opacity:0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<h1>Madammmmmmmmmm🤣💖</h1>
+
+<div class="grid">
+
+  <!-- 9 IMAGES -->
+
+  <div class="card" style="--rot:-6deg">
+    <img src="img21.png">
+    <div class="caption">Just woww 😂</div>
+  </div>
+
+  <div class="card" style="--rot:5deg">
+    <img src="img22.png">
+    <div class="caption">What is this face 😭</div>
+  </div>
+
+  <div class="card" style="--rot:-4deg">
+    <img src="img23.png">
+    <div class="caption">Still cute tho 😌</div>
+  </div>
+
+  <div class="card" style="--rot:6deg">
+    <img src="img24.png">
+    <div class="caption">Enthuva ith?? 😏</div>
+  </div>
+
+  <div class="card" style="--rot:-3deg">
+    <img src="img25.png">
+    <div class="caption">I can't explain this 🤣</div>
+  </div>
+
+  <div class="card" style="--rot:4deg">
+    <img src="img26.png">
+    <div class="caption">Excuse me ma'am??</div>
+  </div>
+
+  <div class="card" style="--rot:-5deg">
+    <img src="img27.png">
+    <div class="caption">Queen behavior 👑</div>
+  </div>
+
+  <div class="card" style="--rot:3deg">
+    <img src="img28.png">
+    <div class="caption">Poth lover 😌</div>
+  </div>
+
+  <div class="card" style="--rot:-6deg">
+    <img src="img29.jpg">
+    <div class="caption">Caught in 4K 😂</div>
+  </div>
+
+</div>
+
+<div class="back" onclick="goBack()">BACK</div>
+<audio id="bgMusic"loop>
+  <source src="whistle.mp3"></source>
+</audio>
+<script>
+function goBack(){
+  window.location.href = "gif.html";
+}
+  document.querySelectorAll(".card").forEach(card=>{
+  card.onclick = ()=>{
+    card.style.transform = "scale(1.1) rotate(5deg)";
+    setTimeout(()=>{
+      card.style.transform = "";
+    },200);
+  }
+});
+  
+const emojis = ["💖","😂","😜","✨","😏","😂","🤣","💘"];
+
+function createEmoji(){
+  const emoji = document.createElement("div");
+  emoji.className = "emoji";
+  emoji.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+
+  // random horizontal position
+  emoji.style.left = Math.random() * 100 + "vw";
+
+  // random size
+  emoji.style.fontSize = (18 + Math.random()*20) + "px";
+
+  // random speed
+  emoji.style.animationDuration = (3 + Math.random()*3) + "s";
+
+  document.body.appendChild(emoji);
+
+  // remove after fall
+  setTimeout(()=>{
+    emoji.remove();
+  }, 6000);
+}
+
+// continuous rain
+setInterval(createEmoji, 300);
+
+document.body.addEventListener("click", ()=>{
+  for(let i=0;i<10;i++) createEmoji();
+});
+const music = document.getElementById("bgMusic");
+
+// try autoplay first
+window.onload = () => {
+  music.play().catch(() => {
+    // autoplay blocked → wait for touch
+    enableTouchStart();
+  });
+};
+
+function enableTouchStart(){
+  const start = () => {
+    music.play();
+
+    // smooth fade in
+    music.volume = 0;
+    let vol = 0;
+
+    let fade = setInterval(()=>{
+      if(vol < 0.5){
+        vol += 0.05;
+        music.volume = vol;
+      } else {
+        clearInterval(fade);
+      }
+    }, 200);
+  };
+
+  // works for mobile + desktop
+  document.body.addEventListener("touchstart", start, { once: true });
+  document.body.addEventListener("click", start, { once: true });
+}
+</script>
+
+</body>
+</html>

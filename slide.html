@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Madammmm 💖</title>
+
+<style>
+body{
+  background: #2f69c9;
+  color:white;
+  margin:0;
+  height:100vh;
+  overflow:hidden;
+  justify-content: center;
+  align-items: center;
+  background:linear-gradient(135deg #0d46a2, #7fb4ff);
+  font-family:'Poppins',sans-serif;
+}
+
+/* 💖 TITLE */
+.title{
+  position:absolute;
+  top:50px;
+  width:100%;
+  text-align:center;
+  color:white;
+  font-size:28px;
+  z-index:10;
+  letter-spacing:2px;
+  font-style: italic;
+}
+
+/* SLIDER */
+.slider{
+  left: 38%;
+  top:150px;
+  position:relative;
+  width: 350px;;
+  height:420px;
+  border-radius:20px;
+box-shadow:0 15px 30px rgba(0,0,0,0.3);
+overflow:hidden;
+background: black;
+}
+
+/* IMAGES */
+.slide{
+  position:absolute;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  transition:opacity 1.5s ease-in-out;
+}
+
+/* ACTIVE */
+.slide.active{
+  opacity:1;
+}
+
+/* ARROWS */
+.arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:30px;
+  color:white;
+  background:rgba(0,0,0,0.4);
+  border:none;
+  padding:10px 15px;
+  cursor:pointer;
+  border-radius:50%;
+  z-index:10;
+}
+
+.left{ left:15px; }
+.right{ right:15px; }
+
+/* 🎀 */
+.ribbon{
+  position:absolute;
+  top:20px;
+  right:20px;
+  font-size:35px;
+  z-index:10;
+}
+
+/* 🧸 */
+.teddy{
+  position:absolute;
+  bottom:20px;
+  left:20px;
+  width:100px;
+  z-index:10;
+  animation: float 4s ease-in-out infinite;
+     }
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+}
+
+/* BACK */
+.back{
+  position:absolute;
+  bottom:20px;
+  right:20px;
+  background:#0d46a2;
+  color:white;
+  padding:10px 20px;
+  border-radius:20px;
+  cursor:pointer;
+  z-index:10;
+}
+</style>
+</head>
+
+<body>
+
+<div class="title">Madammmmmmmm  💖</div>
+
+<div class="slider">
+
+  <!-- 🎀 -->
+  <div class="ribbon">🎀</div>
+
+  <!-- 🧸 -->
+  <img src="ted.png" class="teddy">
+
+  <!-- IMAGES -->
+  <img src="img1.jpg" class="slide active">
+  <img src="img2.jpg" class="slide">
+  <img src="img3.jpg" class="slide">
+  <img src="img4.jpg" class="slide">
+  <img src="img5.jpg" class="slide">
+  <img src="img6.jpg" class="slide">
+  <img src="img7.jpg" class="slide">
+  <img src="img8.jpg" class="slide">
+  <img src="img9.jpg" class="slide">
+  <img src="img10.jpg" class="slide">
+  <img src="img11.jpg" class="slide">
+  <img src="img12.jpg" class="slide">
+  <img src="img13.jpg" class="slide">
+  <img src="img14.jpg" class="slide">
+  <img src="img15.jpg" class="slide">
+  <img src="img16.jpg" class="slide">
+  <img src="img17.jpg" class="slide">
+  <img src="img18.jpg" class="slide">
+  <img src="img19.jpg" class="slide">
+  <img src="img20.jpg" class="slide">
+
+  <!-- ARROWS -->
+  <button class="arrow left" onclick="prev()">‹</button>
+  <button class="arrow right" onclick="next()">›</button>
+
+</div>
+
+<div class="back" onclick="goBack()">BACK</div>
+<audio id="bgMusic"loop>
+  <source src="celeb.mp3"></source>
+</audio>
+<script>
+let slides = document.querySelectorAll(".slide");
+let index = 0;
+
+function showSlide(i){
+  slides.forEach(s => s.classList.remove("active"));
+  slides[i].classList.add("active");
+}
+
+function next(){
+  index = (index + 1) % slides.length;
+  showSlide(index);
+}
+
+function prev(){
+  index = (index - 1 + slides.length) % slides.length;
+  showSlide(index);
+}
+
+// AUTO FADE
+setInterval(next, 3000);
+
+const music = document.getElementById("bgMusic");
+
+// try autoplay first
+window.onload = () => {
+  music.play().catch(() => {
+    // autoplay blocked → wait for touch
+    enableTouchStart();
+  });
+};
+
+function enableTouchStart(){
+  const start = () => {
+    music.play();
+
+    // smooth fade in
+    music.volume = 0;
+    let vol = 0;
+
+    let fade = setInterval(()=>{
+      if(vol < 0.5){
+        vol += 0.05;
+        music.volume = vol;
+      } else {
+        clearInterval(fade);
+      }
+    }, 200);
+  };
+
+  // works for mobile + desktop
+  document.body.addEventListener("touchstart", start, { once: true });
+  document.body.addEventListener("click", start, { once: true });
+}
+
+function goBack(){
+  window.location.href = "gif.html";
+}
+</script>
+
+</body>
+</html>

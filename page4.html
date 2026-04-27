@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Patti Thendiiii😡</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:Poppins, sans-serif;
+  background:#f0f6ff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  text-align:center;
+}
+
+h1{
+  color:#2d5bd1;
+}
+
+.teddy{
+  width:220px;
+  margin:20px 0;
+   animation:shake 0.5s infinite;
+}
+@keyframes shake{
+  0%{transform:translateX(0);}
+  25%{transform:translateX(-5px);}
+  50%{transform:translateX(5px);}
+  75%{transform:translateX(-5px);}
+  100%{transform:translateX(0);}
+}
+button{
+  padding:10px 20px;
+  border:none;
+  border-radius:25px;
+  background:#5a8dee;
+  color:white;
+  cursor:pointer;
+  font-size:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h1>HOW DARE YOU!</h1>
+
+  <!-- ANGRY TEDDY -->
+  <img src="tedch.png" class="teddy">
+
+  <br>
+  <button onclick="retry()">TRY AGAIN</button>
+</div>
+<audio id="bgMusic"loop>
+  <source src="chainsaw.mp3"></source>
+</audio>
+<script>
+function retry(){
+  window.location.href = "page3.html";
+}
+const music = document.getElementById("bgMusic");
+
+// try autoplay first
+window.onload = () => {
+  music.play().catch(() => {
+    // autoplay blocked → wait for touch
+    enableTouchStart();
+  });
+};
+
+function enableTouchStart(){
+  const start = () => {
+    music.play();
+
+    // smooth fade in
+    music.volume = 0;
+    let vol = 0;
+
+    let fade = setInterval(()=>{
+      if(vol < 0.5){
+        vol += 0.05;
+        music.volume = vol;
+      } else {
+        clearInterval(fade);
+      }
+    }, 200);
+  };
+
+  // works for mobile + desktop
+  document.body.addEventListener("touchstart", start, { once: true });
+  document.body.addEventListener("click", start, { once: true });
+}
+</script>
+
+</body>
+</html>

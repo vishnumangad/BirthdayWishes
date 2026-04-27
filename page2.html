@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Birthday 🎂</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  margin:0;
+  font-family:Poppins, sans-serif;
+  background:#f0f6ff;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  text-align:center;
+}
+
+.container{
+  animation:fade 0.6s ease;
+}
+
+@keyframes fade{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1;}
+}
+
+h1{
+  color:#5a8dee;
+  font-size:28px;
+}
+
+.teddy{
+  width:420px;
+  margin:20px 0;
+}
+
+button{
+  padding:12px 25px;
+  border:none;
+  border-radius:25px;
+  background:#5a8dee;
+  color:white;
+  cursor:pointer;
+  font-size:16px;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+ 
+
+  <!-- ADD YOUR TEDDY -->
+  <img src="hbt.png" class="teddy">
+
+  <br>
+  <button onclick="nextPage()">NEXT</button>
+</div>
+<audio id="bgMusic"loop>
+  <source src="Happy Birthday To You Ji_spotdown.org.mp3"></source>
+</audio>
+<script>
+function nextPage(){
+  window.location.href = "page3.html";
+}
+const music = document.getElementById("bgMusic");
+
+// try autoplay first
+window.onload = () => {
+  music.play().catch(() => {
+    // autoplay blocked → wait for touch
+    enableTouchStart();
+  });
+};
+
+function enableTouchStart(){
+  const start = () => {
+    music.play();
+
+    // smooth fade in
+    music.volume = 0;
+    let vol = 0;
+
+    let fade = setInterval(()=>{
+      if(vol < 0.5){
+        vol += 0.05;
+        music.volume = vol;
+      } else {
+        clearInterval(fade);
+      }
+    }, 200);
+  };
+
+  // works for mobile + desktop
+  document.body.addEventListener("touchstart", start, { once: true });
+  document.body.addEventListener("click", start, { once: true });
+}
+</script>
+
+</body>
+</html>

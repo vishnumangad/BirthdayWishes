@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surprise 💙</title>
+
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#2f69c9,#5aa0ff);
+  font-family:'Poppins',sans-serif;
+}
+
+/* MAIN LAYOUT */
+.container{
+  display:flex;
+  gap:40px;
+  align-items:center;
+}
+
+/* 📸 POLAROID STACK */
+.polaroid{
+  background:white;
+  padding:10px;
+  border-radius:12px;
+  width:140px;
+  box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+.polaroid img{
+  width:100%;
+  margin-bottom:8px;
+  border-radius:6px;
+}
+
+.polaroid p{
+  text-align:center;
+  font-size:14px;
+  color:#5a8dee;
+}
+
+/* 💌 MAIN CARD */
+.card{
+  position:relative;
+  width:280px;
+  min-height:320px;
+  background:white;
+  border-radius:20px;
+  padding:20px;
+  box-shadow:0 15px 35px rgba(0,0,0,0.25);
+
+  /* FLOATING + WIGGLE */
+  animation:float 3s ease-in-out infinite;
+}
+
+/* FLOAT ANIMATION */
+@keyframes float{
+  0%{ transform:translateY(0px) rotate(0deg); }
+  50%{ transform:translateY(-10px) rotate(1deg); }
+  100%{ transform:translateY(0px) rotate(0deg); }
+}
+
+/* 💖 TEXT */
+.card h2{
+  margin:0 0 10px;
+  color:#2f69c9;
+}
+
+.card p{
+  font-size:14px;
+  line-height:1.6;
+  color:#333;
+}
+
+/* 🎀 RIBBON TOP RIGHT */
+.ribbon{
+  position:absolute;
+  top:-10px;
+  right:-10px;
+  font-size:40px;
+}
+
+/* 🧸 TEDDY SPACE */
+.teddy{
+  position:absolute;
+  bottom:10px;
+  left:10px;
+  width:70px;
+  height:70px;
+}
+
+/* OPTIONAL placeholder style */
+.teddy::after{
+  content:"🧸";
+  font-size:40px;
+
+}
+
+/* BACK BUTTON */
+.back{
+  position:absolute;
+  bottom:30px;
+  right:30px;
+  background:#5a8dee;
+  color:white;
+  padding:8px 18px;
+  border-radius:20px;
+  cursor:pointer;
+}
+  .word{
+  opacity:0;
+  display:inline;
+  transform:translateY(8px);
+  transition:0.4s ease;
+}
+
+.word.show{
+  opacity:1;
+  transform:translateY(0);
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- 📸 LEFT IMAGES -->
+  <div class="polaroid">
+    <img src="img1.jpg">
+    <img src="img2.jpg">
+    <img src="img3.jpg">
+    <p>Madammm 💙</p>
+  </div>
+
+  <!-- 💌 FLOATING CARD -->
+  <div class="card">
+
+    <div class="ribbon">🎀</div>
+
+    <h2>Nayanaaaaa💖</h2>
+
+    <p id="loveText">
+      
+    </p>
+
+    <!-- 🧸 ADD YOUR TEDDY IMAGE HERE -->
+    <div class="teddy">
+      <!-- replace with:
+      <img src="teddy.png" width="100%">
+      -->
+    </div>
+
+  </div>
+
+</div>
+
+<div class="back" onclick="goBack()">BACK</div>
+<audio id="bgMusic"loop>
+  <source src="Love Story (Fast Piano Ver.)_spotdown.org.mp3"></source>
+</audio>
+<script>
+function goBack(){
+  window.location.href = "gif.html";
+}
+const text = `The smile I never knew I needed and the warmth I always look for. 
+I just want you to know that you make me really happy with you. 
+Every moment with you feels special, and honestly I wouldn’t trade it for anything. 
+You mean more than anything to me 💕`;
+
+const container = document.getElementById("loveText");
+
+// split into words
+const words = text.split(/(\s+)/);
+
+words.forEach((word, index) => {
+  const span = document.createElement("span");
+  if (word.trim()===" "){
+    span.innerHTML=word;
+  }
+  else{
+  span.classList.add("word");
+  span.innerText = word;
+  }
+  container.appendChild(span);
+if(word.trim()!==" "){
+  // delay each word
+  setTimeout(() => {
+    span.classList.add("show");
+  }, index * 80);
+ } // speed control
+});
+const music = document.getElementById("bgMusic");
+
+// try autoplay first
+window.onload = () => {
+  music.play().catch(() => {
+    // autoplay blocked → wait for touch
+    enableTouchStart();
+  });
+};
+
+function enableTouchStart(){
+  const start = () => {
+    music.play();
+
+    // smooth fade in
+    music.volume = 0;
+    let vol = 0;
+
+    let fade = setInterval(()=>{
+      if(vol < 0.5){
+        vol += 0.05;
+        music.volume = vol;
+      } else {
+        clearInterval(fade);
+      }
+    }, 200);
+  };
+
+  // works for mobile + desktop
+  document.body.addEventListener("touchstart", start, { once: true });
+  document.body.addEventListener("click", start, { once: true });
+}
+</script>
+
+</body>
+</html>
